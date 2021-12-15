@@ -4,7 +4,7 @@
 sudo apt remove --purge -y gnome*
 
 # Install i3wm and DM
-sudo apt install -y i3 slim
+sudo apt install -y xfce4
 
 # Update system
 sudo apt update
