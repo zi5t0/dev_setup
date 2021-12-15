@@ -41,6 +41,8 @@ mv .vimrc /home/$USER/.vimrc
 # i3wm config
 xrandr --dpi 220
 # Wallpaper
+wget https://img-blog.csdnimg.cn/20200822171906778.png
+mv 20200822171906778.png /home/$USER/Pictures/kwllp.png
 echo '#!/bin/bash' > /home/$USER/.bash_profile
 echo 'feh --bg-scale /home/$USER/Pictures/kwllp.png' >> /home/$USER/.bash_profile
 # Cursor config
