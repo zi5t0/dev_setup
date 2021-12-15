@@ -1,10 +1,16 @@
 #!/bin/bash
 
-# Install xfce4
-sudo apt install -y xfce4
+# Debloat ubuntu - remove gnome
+sudo apt remove --purge -y gnome*
+
+# Install i3wm and DM
+sudo apt install -y i3 slim
 
 # Update system
 sudo apt update
+
+# Get user
+USER=$(whoami)
 
 # Install utilities
 sudo apt install -y vim htop build-essential linux-headers-$(uname -r) ca-certificates software-properties-common apt-transport-https wget curl
@@ -21,6 +27,8 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt update
 sudo apt install -y feh sakura thunar rofi code vlc mousepad firefox qbittorrent neofetch filezilla docker-ce
 
+# TODO: ADD ZSH
+
 # Setup docker
 sudo usermod -aG docker $USER
 
@@ -29,17 +37,18 @@ sudo apt install -y libappindicator1
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 # Setup vim config
-echo ':syntax on' /home/vizhork/.vimrc
-echo ':set number' /home/vizhork/.vimrc
+mv .vimrc /home/vizhork/.vimrc
 
-# Setup zsh
-sudo apt install -y zsh zshsudo
-wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-
+# TODO: Change i3 by i3gaps, config polybar
+# i3wm config
+xrandr --dpi 220
 # Wallpaper
 wget https://img-blog.csdnimg.cn/20200822171906778.png
 mv 20200822171906778.png /home/vizhork/Pictures/kwllp.png
 echo '#!/bin/bash' > /home/vizhork/.bash_profile
 echo 'feh --bg-scale /home/vizhork/Pictures/kwllp.png' >> /home/vizhork/.bash_profile
+# Cursor config
+echo 'Xcursor.size: 48' >> /home/vizhork/.Xresources
 # Reboot
 /sbin/reboot
+#xrdb /home/vizhork/.Xresources
