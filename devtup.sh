@@ -19,13 +19,13 @@ sudo apt install -y vim htop build-essential linux-headers-$(uname -r) ca-certif
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+#echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 # Install programs
 sudo apt update
-sudo apt install -y sakura thunar rofi code vlc mousepad firefox qbittorrent neofetch spotify-client filezilla docker-ce
+sudo apt install -y sakura thunar rofi code vlc mousepad firefox qbittorrent neofetch filezilla docker-ce
 
 # Setup docker
 sudo usermod -aG docker $USER
