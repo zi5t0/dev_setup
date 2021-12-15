@@ -35,7 +35,8 @@ sudo apt install -y libappindicator1
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 # Setup vim config
-mv .vimrc /home/vizhork/.vimrc
+echo ':syntax on' /home/vizhork/.vimrc
+echo ':set number' /home/vizhork/.vimrc
 
 # Setup zsh
 sudo apt install -y zsh zshsudo
