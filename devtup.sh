@@ -45,4 +45,6 @@ echo '#!/bin/bash' > /home/$USER/.bash_profile
 echo 'feh --bg-scale /home/$USER/Pictures/kwllp.png' >> /home/$USER/.bash_profile
 # Cursor config
 echo 'Xcursor.size: 48' >> /home/$USER/.Xresources
-xrdb /home/$USER/.Xresources
+# Reboot
+/sbin/reboot
+#xrdb /home/$USER/.Xresources
