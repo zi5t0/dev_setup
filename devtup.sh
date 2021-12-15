@@ -27,6 +27,8 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt update
 sudo apt install -y feh sakura thunar rofi code vlc mousepad firefox qbittorrent neofetch filezilla docker-ce
 
+# TODO: ADD ZSH
+
 # Setup docker
 sudo usermod -aG docker $USER
 
