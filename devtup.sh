@@ -25,7 +25,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 # Install programs
 sudo apt update
-sudo apt install -y sakura thunar rofi git code vlc mousepad firefox qbittorrent neofetch spotify-client filezilla docker-ce
+sudo apt install -y sakura thunar rofi code vlc mousepad firefox qbittorrent neofetch spotify-client filezilla docker-ce
 
 # Setup docker
 sudo usermod -aG docker $USER
