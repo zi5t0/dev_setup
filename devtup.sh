@@ -27,8 +27,6 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt update
 sudo apt install -y feh sakura thunar rofi code vlc mousepad firefox qbittorrent neofetch filezilla docker-ce
 
-# TODO: ADD ZSH
-
 # Setup docker
 sudo usermod -aG docker $USER
 
@@ -38,6 +36,10 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 # Setup vim config
 mv .vimrc /home/vizhork/.vimrc
+
+# Setup zsh
+sudo apt install -y zsh zshsudo
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 
 # TODO: Change i3 by i3gaps, config polybar
 # i3wm config
