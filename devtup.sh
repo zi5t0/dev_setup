@@ -40,7 +40,7 @@ sudo systemctl enable --now libvirtd
 sudo apt install -y virt-manager
 
 # Qbittorrent
-sudo apt install qbittorrent
+sudo apt install -y qbittorrent
 
 # Anydesk
 wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
