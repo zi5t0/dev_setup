@@ -124,5 +124,3 @@ sudo apt install -y -f
 # Set wallpaper
 wget https://wallpapercave.com/wp/wp6164840.png -O /home/zhork/Imágenes/kali_wp.png
 
-# Reboot system
-sudo reboot
