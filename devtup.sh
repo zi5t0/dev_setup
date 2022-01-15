@@ -1,49 +1,128 @@
 #!/bin/bash
 
-# Install i3wm and DM
-sudo apt install -y xfce4 xfce4-goodies slim
-
 # Update system
 sudo apt update
 
-# Get user
-USER=$(whoami)
+# Dev libraries
+sudo apt install -y build-essentials linux-headers-$(uname -r) gcc g++ make
 
-# Install utilities
-sudo apt install -y vim htop build-essential linux-headers-$(uname -r) ca-certificates software-properties-common apt-transport-https wget curl
+# Software libraries
+sudo apt install apt-transport-https ca-certificates software-properties-common
 
-# Adding repos
-wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-#echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
-#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+# Php,unzip & composer
+sudo apt install -y php php-cli php-curl php-xml php-zip php-mbstring unzip
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+# Git, Neofetch, Htop, Curl, Wget, Uzip, Feh, Mpv, Python3-Pip
+sudo apt install -y git neofetch htop curl wget feh mpv python3-pip
+
+# Vim & config
+sudo apt install -y vim
+echo ':syntax on' >> /home/zhork/.vimrc
+echo ':set number' >> /home/zhork/.vimrc
+sudo cp /home/zhork/.vimrc /root/.vimrc
+
+# Atril, Thunderbird, Libreoffice, Filezilla
+sudo apt install -y atril thunderbird filezilla 
+
+# Docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-# Install programs
-sudo apt update
-sudo apt install -y feh sakura rofi code vlc firefox qbittorrent neofetch filezilla docker-ce
+sudo apt update && sudo apt install -y docker-ce
+sudo usermod -aG docker zhork
 
-# Setup docker
-sudo usermod -aG docker $USER
+# Qemu, virt-manager
+sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+sudo adduser zhork libvirt
+sudo adduser zhork kvm
+sudo systemctl status libvirtd
+sudo systemctl enable --now libvirtd
+sudo apt install virt-manager
 
-# Setup chrome
-sudo apt install -y libappindicator1
-sudo dpkg -i google-chrome-stable_current_amd64.deb
+# Qbittorrent
+sudo apt install qbittorrent
 
-# Setup vim config
-mv .vimrc /home/vizhork/.vimrc
+# Anydesk
+wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk.list
+sudo apt update && sudo apt install -y anydesk
 
-# TODO: Change i3 by i3gaps, config polybar
-# i3wm config
-#xrandr --dpi 220
-# Wallpaper
-wget https://img-blog.csdnimg.cn/20200822171906778.png
-mv 20200822171906778.png /home/vizhork/Pictures/kwllp.png
-echo '#!/bin/bash' > /home/vizhork/.bash_profile
-echo 'feh --bg-scale /home/vizhork/Pictures/kwllp.png' >> /home/vizhork/.bash_profile
-# Cursor config
-#echo 'Xcursor.size: 48' >> /home/vizhork/.Xresources
-# Reboot
-/sbin/reboot
-#xrdb /home/vizhork/.Xresources
+# Teamviewer
+wget -O - https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc | sudo apt-key add -
+sudo apt-add-repository "deb http://linux.teamviewer.com/deb stable main"
+sudo apt update && sudo apt install -y teamviewer
+
+# Visual Studio Code
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt update && sudo apt install -y code
+
+# Pycharm
+mkdir pycharm
+wget https://download.jetbrains.com/python/pycharm-community-2021.3.1.tar.gz
+tar -xf pycharm-community-*.tar.gz -C pycharm --strip=1
+sudo mv pycharm /opt/
+echo '[Desktop Entry]                          
+Version=1.0
+Name=PyCharm
+GenericName=PyCharm
+Comment=Python IDE
+Exec=/opt/pycharm/bin/./pycharm.sh
+Icon=/opt/pycharm/bin/pycharm.png
+Terminal=false
+Type=Application' > Pycharm.desktop
+sudo mv Pycharm.desktop /usr/share/applications/
+
+# Postman
+wget https://dl.pstmn.io/download/latest/linux64
+sudo tar -xvf linux64 -C /usr/bin
+echo 'export PATH="$PATH:/usr/bin/Postman"' >> ~/.bashrc
+echo '[Desktop Entry]
+Name=Postman API Tool
+GenericName=Postman
+Comment=Testing API
+Exec=/usr/bin/Postman/Postman
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=/usr/bin/Postman/app/resources/app/assets/icon.png
+StartupWMClass=Postman
+StartupNotify=true' > Postman.desktop
+sudo mv Postman.desktop /usr/share/applications/Postman.desktop
+
+# Google Chrome
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+dpkg -i google-chrome-stable_current_amd64.deb
+
+# Vlc
+sudo apt install -y vlc
+
+# Spotify
+curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt update && sudo apt -y install spotify-client
+
+# Zoom
+wget https://zoom.us/client/latest/zoom_amd64.deb
+sudo apt install -y ./zoom_amd64.deb
+
+# Discord
+wget "https://discord.com/api/download?platform=linux&format=deb" -O discord.deb
+sudo apt install -y discord.deb
+
+# Zsh, OhMyZsh
+sudo apt install -y zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Upgrade system
+sudo apt upgrade
+
+# Fix installs 
+sudo apt install -y -f
+
+# Set wallpaper
+wget https://wallpapercave.com/wp/wp6164840.png -O /home/zhork/Imágenes/kali_wp.png
+
+# Reboot system
+sudo reboot
