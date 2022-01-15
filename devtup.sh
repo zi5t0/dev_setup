@@ -4,7 +4,7 @@
 sudo apt update
 
 # Dev libraries
-sudo apt install -y build-essentials linux-headers-$(uname -r) gcc g++ make
+sudo apt install -y build-essential linux-headers-$(uname -r) gcc g++ make
 
 # Software libraries
 sudo apt install -y apt-transport-https ca-certificates software-properties-common
@@ -108,14 +108,14 @@ sudo apt install -y ./zoom_amd64.deb
 
 # Discord
 wget "https://discord.com/api/download?platform=linux&format=deb" -O discord.deb
-sudo apt install -y discord.deb
+sudo apt install -y ./discord.deb
 
 # Zsh, OhMyZsh
 sudo apt install -y zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Upgrade system
-sudo apt upgrade
+sudo apt -y upgrade
 
 # Fix installs 
 sudo apt install -y -f
