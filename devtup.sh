@@ -7,7 +7,7 @@ sudo apt update
 sudo apt install -y build-essentials linux-headers-$(uname -r) gcc g++ make
 
 # Software libraries
-sudo apt install apt-transport-https ca-certificates software-properties-common
+sudo apt install -y apt-transport-https ca-certificates software-properties-common
 
 # Php,unzip & composer
 sudo apt install -y php php-cli php-curl php-xml php-zip php-mbstring unzip
@@ -36,9 +36,8 @@ sudo usermod -aG docker zhork
 sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
 sudo adduser zhork libvirt
 sudo adduser zhork kvm
-sudo systemctl status libvirtd
 sudo systemctl enable --now libvirtd
-sudo apt install virt-manager
+sudo apt install -y virt-manager
 
 # Qbittorrent
 sudo apt install qbittorrent
