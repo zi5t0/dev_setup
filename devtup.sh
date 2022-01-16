@@ -112,7 +112,6 @@ sudo apt install -y ./discord.deb
 
 # Zsh, OhMyZsh
 sudo apt install -y zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Upgrade system
 sudo apt -y upgrade
@@ -123,3 +122,11 @@ sudo apt install -y -f
 # Set wallpaper
 wget https://wallpapercave.com/wp/wp6164840.png -O /home/zhork/Imágenes/kali_wp.png
 
+# Uninstall games and other software
+sudo apt remove -y parole gimp pidgin transmission* *sudoku* xfburn ristretto gnome-mines/focal
+sudo apt autoremove -y
+
+# Configure OhMyZsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# TO-DO: Create and configure VMs and Docker
