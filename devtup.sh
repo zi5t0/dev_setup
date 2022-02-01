@@ -3,6 +3,10 @@
 # Update system
 sudo apt update
 
+# Set global var
+USR=$(whoami)
+HOMEDIR=/home$USR
+
 # Dev libraries
 sudo apt install -y build-essential linux-headers-$(uname -r) gcc g++ make
 
@@ -19,9 +23,9 @@ sudo apt install -y git neofetch htop curl wget feh mpv python3-pip
 
 # Vim & config
 sudo apt install -y vim
-echo ':syntax on' >> /home/zhork/.vimrc
-echo ':set number' >> /home/zhork/.vimrc
-sudo cp /home/zhork/.vimrc /root/.vimrc
+echo ':syntax on' >> $HOMEDIR/.vimrc
+echo ':set number' >> $HOMEDIR/.vimrc
+sudo cp $HOMEDIR/.vimrc /root/.vimrc
 
 # Atril, Thunderbird, Libreoffice, Filezilla
 sudo apt install -y atril thunderbird filezilla 
@@ -30,12 +34,12 @@ sudo apt install -y atril thunderbird filezilla
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 sudo apt update && sudo apt install -y docker-ce
-sudo usermod -aG docker zhork
+sudo usermod -aG docker $USR
 
 # Qemu, virt-manager
 sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
-sudo adduser zhork libvirt
-sudo adduser zhork kvm
+sudo adduser $USR libvirt
+sudo adduser $USR kvm
 sudo systemctl enable --now libvirtd
 sudo apt install -y virt-manager
 
@@ -120,14 +124,17 @@ sudo apt -y upgrade
 sudo apt install -y -f
 
 # Set wallpaper
-wget https://wallpapercave.com/wp/wp6164840.png -O /home/zhork/Imágenes/kali_wp.png
+wget https://wallpapercave.com/wp/wp6164840.png -O $HOMEDIR/Imágenes/kali_wp.png
 
 # Uninstall games and other software
 sudo apt remove -y parole gimp pidgin transmission* *sudoku* xfburn ristretto gnome-mines/focal
 sudo apt autoremove -y
 
+# TO-DO: Create and configure VMs and Docker
+sudo rm discord.deb zoom_amd64.deb pycharm-community-2021.3.1.tar.gz google-chrome-stable_current_amd64.deb linux64
+
 # Configure OhMyZsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# TO-DO: Create and configure VMs and Docker
-sudo rm discord.deb zoom_amd64.deb pycharm-community-2021.3.1.tar.gz google-chrome-stable_current_amd64.deb linux64
+# Remove self script
+setup.sh
