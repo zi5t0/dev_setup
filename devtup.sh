@@ -28,7 +28,7 @@ echo ':set number' >> $HOMEDIR/.vimrc
 sudo cp $HOMEDIR/.vimrc /root/.vimrc
 
 # Atril, Thunderbird, Libreoffice, Filezilla
-sudo apt install -y atril thunderbird filezilla 
+sudo apt install -y evince thunderbird filezilla 
 
 # Docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
