@@ -130,12 +130,8 @@ wget https://wallpapercave.com/wp/wp6164840.png -O $HOMEDIR/Imágenes/kali_wp.pn
 sudo apt remove -y parole gimp pidgin transmission* *sudoku* xfburn ristretto gnome-mines/focal
 sudo apt autoremove -y
 
-# TO-DO: Create and configure VMs and Docker
-sudo rm discord.deb zoom_amd64.deb pycharm-community-2021.3.1.tar.gz google-chrome-stable_current_amd64.deb linux64
-
-# Remove self script
-setup.sh
+# Remove residual packages and script
+sudo rm discord.deb zoom_amd64.deb pycharm-community-2021.3.1.tar.gz google-chrome-stable_current_amd64.deb linux64 setup.sh
 
 # Configure OhMyZsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
