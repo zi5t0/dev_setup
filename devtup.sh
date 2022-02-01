@@ -130,3 +130,4 @@ sudo apt autoremove -y
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # TO-DO: Create and configure VMs and Docker
+sudo rm discord.deb zoom_amd64.deb pycharm-community-2021.3.1.tar.gz google-chrome-stable_current_amd64.deb linux64
