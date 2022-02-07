@@ -2,7 +2,8 @@
 This script is intended for installing unnatending mode the software that u need to develop in your (Ubuntu Based) distro
 
 #### What software does this script includes?
-(Al menos que se especifique lo contrario todo el software que se lista a continuación se instalará en su última versión estable
+Unless otherwise specified, all software listed below will be installed in its latest stable version.
+
 - VIM
 - VS Code
 - Docker
