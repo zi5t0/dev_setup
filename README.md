@@ -1,4 +1,4 @@
-# Development Setup Script
+# DSS - Development Setup Script
 This script is intended for installing unnatending mode the software that u need to develop in your (Ubuntu Based) distro
 
 #### What software does this script includes?
