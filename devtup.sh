@@ -134,4 +134,4 @@ sudo apt autoremove -y
 sudo rm discord.deb zoom_amd64.deb pycharm-community-2021.3.1.tar.gz google-chrome-stable_current_amd64.deb linux64 setup.sh
 
 # Configure OhMyZsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended --skip-chsh"
