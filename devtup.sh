@@ -28,9 +28,9 @@ echo ':set number' >> $HOMEDIR/.vimrc
 sudo cp $HOMEDIR/.vimrc /root/.vimrc
 
 # Fix FenviT919 drivers problem
-sudo add-apt-repository ppa:kelebek333/kablosuz
-sudo apt-get update
-sudo apt install bcmwl-kernel-source
+sudo add-apt-repository -y ppa:kelebek333/kablosuz
+sudo apt-get -y update
+sudo apt install -y bcmwl-kernel-source
 
 # Evince, Libreoffice, Thunderbird, Filezilla
 sudo apt install -y evince libreoffice thunderbird filezilla 
@@ -55,11 +55,6 @@ sudo apt install -y qbittorrent
 wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
 sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk.list
 sudo apt update && sudo apt install -y anydesk
-
-# Teamviewer
-wget -O - https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc | sudo apt-key add -
-sudo apt-add-repository "deb http://linux.teamviewer.com/deb stable main"
-sudo apt update && sudo apt install -y teamviewer
 
 # Visual Studio Code
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
