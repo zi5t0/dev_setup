@@ -27,6 +27,11 @@ echo ':syntax on' >> $HOMEDIR/.vimrc
 echo ':set number' >> $HOMEDIR/.vimrc
 sudo cp $HOMEDIR/.vimrc /root/.vimrc
 
+# Fix FenviT919 drivers problem
+sudo add-apt-repository ppa:kelebek333/kablosuz
+sudo apt-get update
+sudo apt install bcmwl-kernel-source
+
 # Evince, Libreoffice, Thunderbird, Filezilla
 sudo apt install -y evince libreoffice thunderbird filezilla 
 
