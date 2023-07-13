@@ -73,9 +73,9 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 # Spotify
-curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
+curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt update && sudo apt -y install spotify-client
+sudo apt update && sudo apt -y install spotify-client && sudo apt -f install
 
 # Zsh
 sudo apt install -y zsh
@@ -106,7 +106,7 @@ curl -fsSL https://get.pnpm.io/install.sh | sh -
 npm install -g @angular/cli
 
 # Forticlient VPN
-wget https://links.fortinet.com/forticlient/deb/vpnagent forticlient.deb
+wget https://links.fortinet.com/forticlient/deb/vpnagent -O forticlient.deb
 sudo dpkg -i forticlient.deb
 
 # Slack
@@ -117,4 +117,4 @@ wget https://mirror.slackware.hr/sources/teams/teams_1.5.00.23861_amd64.deb
 sudo dpkg -i teams_1.5.00.23861_amd64.deb
 
 # Remove residual packages and script
-sudo rm google-chrome-stable_current_amd64.deb linux64 setup.sh forticlient.deb slack.deb
+sudo rm google-chrome-stable_current_amd64.deb forticlient.deb teams_1.5.00.23861_amd64.deb
