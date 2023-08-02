@@ -2,8 +2,7 @@
 
 USERNAME=$(whoami)
 # Setup sudo user
-su -c "apt install -y sudo"
-su -c "/usr/sbin/usermod -aG sudo $USERNAME"
+su -c 'apt update; apt install -y sudo; /usr/sbin/usermod -aG sudo $USERNAME'
 newgrp zhork
 
 # Install basic programs
