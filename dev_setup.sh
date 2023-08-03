@@ -22,29 +22,14 @@ echo ':syntax on' >> $HOMEDIR/.vimrc
 echo ':set number' >> $HOMEDIR/.vimrc
 sudo cp $HOMEDIR/.vimrc /root/.vimrc
 
-# Evince, Libreoffice, Thunderbird
-sudo apt install -y evince libreoffice thunderbird 
-
 # Docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 sudo apt update && sudo apt install -y docker-ce docker-compose
 sudo usermod -aG docker $USR
 
-# Qemu, virt-manager
-sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
-sudo adduser $USR libvirt
-sudo adduser $USR kvm
-sudo systemctl enable --now libvirtd
-sudo apt install -y virt-manager
-
 # Qbittorrent
 sudo apt install -y qbittorrent
-
-# Anydesk
-wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk.list
-sudo apt update && sudo apt install -y anydesk
 
 # Visual Studio Code
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
@@ -80,23 +65,13 @@ sudo apt update && sudo apt -y install spotify-client && sudo apt -f install
 # Zsh
 sudo apt install -y zsh
 
-# Upgrade system
-sudo apt -y upgrade
-
 # Fix installs 
 sudo apt install -y -f
-
-# Set wallpaper
-wget https://wallpapercave.com/wp/wp6164840.png -O $HOMEDIR/Imágenes/kali_wp.png
-
-# Uninstall games and other software
-sudo apt remove -y parole gimp pidgin transmission* *sudoku* xfburn ristretto gnome-mines/focal
-sudo apt autoremove -y
 
 # Configure OhMyZsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended --skip-chsh"
 
-# Node, NPM
+# TODO: REVIEW VERSION OF Node, NPM
 sudo apt install -y nodejs npm
 
 # Pnpm
@@ -112,9 +87,6 @@ sudo dpkg -i forticlient.deb
 # Slack
 sudo snap install slack
 
-# Teams
-wget https://mirror.slackware.hr/sources/teams/teams_1.5.00.23861_amd64.deb
-sudo dpkg -i teams_1.5.00.23861_amd64.deb
 
 # Remove residual packages and script
-sudo rm google-chrome-stable_current_amd64.deb forticlient.deb teams_1.5.00.23861_amd64.deb
+sudo rm google-chrome-stable_current_amd64.deb forticlient.deb
