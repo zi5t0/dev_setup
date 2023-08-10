@@ -87,6 +87,14 @@ sudo dpkg -i forticlient.deb
 # Slack
 sudo snap install slack
 
+# Filezilla
+sudo apt install -y filezilla
+
+# Qbittorrent
+sudo apt install -y qbittorrent
+
+
+
 
 # Remove residual packages and script
 sudo rm google-chrome-stable_current_amd64.deb forticlient.deb
