@@ -22,7 +22,6 @@ sudo apt install -y -f
 # Configure OhMyZsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended --skip-chsh"
 
-
 # Vim & config
 sudo apt install -y vim
 echo ':syntax on' >> $HOMEDIR/.vimrc && echo ':set number' >> $HOMEDIR/.vimrc
