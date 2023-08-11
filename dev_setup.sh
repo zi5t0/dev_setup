@@ -13,27 +13,30 @@ sudo apt install -y build-essential linux-headers-$(uname -r) gcc g++ make
 # Software libraries
 sudo apt install -y apt-transport-https ca-certificates software-properties-common
 
-# Git, Unzip, Neofetch, Htop, Curl, Wget, Feh, Mpv, Vlc Python3-Pip
-sudo apt install -y git unzip neofetch htop curl wget feh mpv vlc python3-pip
+# Git, Unzip, Neofetch, Htop, Curl, Wget, Feh, Mpv, Vlc Python3-Pip, zsh, filezilla qbittorrent
+sudo apt install -y git unzip neofetch htop curl wget feh mpv vlc python3-pip zsh filezilla qbittorrent
+
+# Fix installs 
+sudo apt install -y -f
+
+# Configure OhMyZsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended --skip-chsh"
+
 
 # Vim & config
 sudo apt install -y vim
-echo ':syntax on' >> $HOMEDIR/.vimrc
-echo ':set number' >> $HOMEDIR/.vimrc
+echo ':syntax on' >> $HOMEDIR/.vimrc && echo ':set number' >> $HOMEDIR/.vimrc
 sudo cp $HOMEDIR/.vimrc /root/.vimrc
 
 # Docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 sudo apt update && sudo apt install -y docker-ce docker-compose
-sudo usermod -aG docker $USR
-
-# Qbittorrent
-sudo apt install -y qbittorrent
+sudo usermod -aG docker $USR && newgrp docker
 
 # Visual Studio Code
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo add-apt-repository -y "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 sudo apt update && sudo apt install -y code
 
 # Postman
@@ -62,15 +65,6 @@ curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo 
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt update && sudo apt -y install spotify-client && sudo apt -f install
 
-# Zsh
-sudo apt install -y zsh
-
-# Fix installs 
-sudo apt install -y -f
-
-# Configure OhMyZsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended --skip-chsh"
-
 # NVM
 wget https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh
 bash install.sh && rm install.sh
@@ -92,10 +86,8 @@ sudo systemctl enable logid
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 source /home/zhork/.bashrc
 
-
 # Angular (v13)
 pnpm install -g @angular/cli@13
-
 
 # Forticlient VPN (app y complemento para gnome-network)
 wget https://links.fortinet.com/forticlient/deb/vpnagent -O forticlient.deb
@@ -104,12 +96,6 @@ sudo apt install -y network-manager-fortisslvpn-gnome
 
 # Slack
 sudo snap install slack
-
-# Filezilla
-sudo apt install -y filezilla
-
-# Qbittorrent
-sudo apt install -y qbittorrent
 
 # Customization (themes) arc-icon-theme
 git clone https://github.com/horst3180/arc-icon-theme --depth 1 && sudo mv arc-icon-them/Arc /usr/share/icons/arc
