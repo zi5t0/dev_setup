@@ -7,6 +7,10 @@ sudo apt update
 USR=$(whoami)
 HOMEDIR=/home/$USR
 
+# Download debs: chrome, forticlient
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb &
+wget https://links.fortinet.com/forticlient/deb/vpnagent -O forticlient.deb &
+
 # Dev libraries
 sudo apt install -y build-essential linux-headers-$(uname -r) gcc g++ make
 
@@ -31,7 +35,7 @@ sudo cp $HOMEDIR/.vimrc /root/.vimrc
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 sudo apt update && sudo apt install -y docker-ce docker-compose
-sudo usermod -aG docker $USR && newgrp docker
+sudo usermod -aG docker $USR && newgrp docker && exit
 
 # Visual Studio Code
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
@@ -55,8 +59,8 @@ StartupWMClass=Postman
 StartupNotify=true' > Postman.desktop
 sudo mv Postman.desktop /usr/share/applications/Postman.desktop
 
+
 # Google Chrome
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 # Spotify
@@ -89,9 +93,9 @@ source /home/zhork/.bashrc
 pnpm install -g @angular/cli@13
 
 # Forticlient VPN (app y complemento para gnome-network)
-wget https://links.fortinet.com/forticlient/deb/vpnagent -O forticlient.deb
 sudo dpkg -i forticlient.deb
 sudo apt install -y network-manager-fortisslvpn-gnome
+sudo apt -y --fix-broken install
 
 # Slack
 sudo snap install slack
