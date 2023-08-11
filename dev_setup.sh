@@ -5,7 +5,7 @@ sudo apt update
 
 # Set global var
 USR=$(whoami)
-HOMEDIR=/home$USR
+HOMEDIR=/home/$USR
 
 # Dev libraries
 sudo apt install -y build-essential linux-headers-$(uname -r) gcc g++ make
