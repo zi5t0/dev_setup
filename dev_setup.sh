@@ -71,18 +71,36 @@ sudo apt install -y -f
 # Configure OhMyZsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended --skip-chsh"
 
-# TODO: REVIEW VERSION OF Node, NPM
-sudo apt install -y nodejs npm
+# NVM
+wget https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh
+bash install.sh && rm install.sh
+source ~/.bashrc
+
+# NodeJS V18
+nvm install v18
+nvm use 18
+nvm alias default 18
+
+# Optional: Logitech drivers and config
+sudo apt install -y build-essential cmake pkg-config libevdev-dev libudev-dev libconfig++-dev libglib2.0-dev
+git clone https://github.com/PixlOne/logiops.git
+cd logiops && mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Release .. && make && sudo make install && rm -r logiops
+sudo systemctl enable logid
 
 # Pnpm
 curl -fsSL https://get.pnpm.io/install.sh | sh -
+source /home/zhork/.bashrc
 
-# Angular
-npm install -g @angular/cli
 
-# Forticlient VPN
+# Angular (v13)
+pnpm install -g @angular/cli@13
+
+
+# Forticlient VPN (app y complemento para gnome-network)
 wget https://links.fortinet.com/forticlient/deb/vpnagent -O forticlient.deb
 sudo dpkg -i forticlient.deb
+sudo apt install -y network-manager-fortisslvpn-gnome
 
 # Slack
 sudo snap install slack
@@ -93,8 +111,12 @@ sudo apt install -y filezilla
 # Qbittorrent
 sudo apt install -y qbittorrent
 
+# Customization (themes) arc-icon-theme
+git clone https://github.com/horst3180/arc-icon-theme --depth 1 && sudo mv arc-icon-them/Arc /usr/share/icons/arc
+# TODO: Falta hacer que se setee el tema de iconos por defecto
 
-
+# Fix firefox
+sudo apt -y install --reinstall firefox
 
 # Remove residual packages and script
 sudo rm google-chrome-stable_current_amd64.deb forticlient.deb
