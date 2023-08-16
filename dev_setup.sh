@@ -8,8 +8,8 @@ USR=$(whoami)
 HOMEDIR=/home/$USR
 
 # Download debs: chrome, forticlient
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb &
-wget https://links.fortinet.com/forticlient/deb/vpnagent -O forticlient.deb &
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+wget https://links.fortinet.com/forticlient/deb/vpnagent -O forticlient.deb
 
 # Dev libraries
 sudo apt install -y build-essential linux-headers-$(uname -r) gcc g++ make
