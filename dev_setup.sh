@@ -110,5 +110,11 @@ sudo apt -y install --reinstall firefox
 # Remove residual packages and script
 sudo rm google-chrome-stable_current_amd64.deb forticlient.deb
 
-# Docker Group
-newgrp docker && exit
+# WINE
+sudo dpkg --add-architecture i386 && sudo apt update -y
+sudo mkdir -pm755 /etc/apt/keyrings
+sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+sudo apt update -y
+sudo apt install -y --install-recommends winehq-stable
+
