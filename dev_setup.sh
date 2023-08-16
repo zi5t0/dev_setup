@@ -35,7 +35,7 @@ sudo cp $HOMEDIR/.vimrc /root/.vimrc
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 sudo apt update && sudo apt install -y docker-ce docker-compose
-sudo usermod -aG docker $USR && newgrp docker && exit
+sudo usermod -aG docker $USR
 
 # Visual Studio Code
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
@@ -109,3 +109,6 @@ sudo apt -y install --reinstall firefox
 
 # Remove residual packages and script
 sudo rm google-chrome-stable_current_amd64.deb forticlient.deb
+
+# Docker Group
+newgrp docker && exit
