@@ -9,7 +9,6 @@ HOMEDIR=/home/$USR
 
 # Download debs: chrome, forticlient
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-wget https://links.fortinet.com/forticlient/deb/vpnagent -O forticlient.deb
 
 # Dev libraries
 sudo apt install -y build-essential linux-headers-$(uname -r) gcc g++ make
@@ -92,14 +91,6 @@ source /home/zhork/.bashrc
 # Angular (v13)
 pnpm install -g @angular/cli@13
 
-# Forticlient VPN (app y complemento para gnome-network)
-sudo dpkg -i forticlient.deb
-sudo apt install -y network-manager-fortisslvpn-gnome
-sudo apt -y --fix-broken install
-
-# Slack
-sudo snap install slack
-
 # Customization (themes) arc-icon-theme
 git clone https://github.com/horst3180/arc-icon-theme --depth 1 && sudo mv arc-icon-them/Arc /usr/share/icons/arc
 # TODO: Falta hacer que se setee el tema de iconos por defecto
@@ -108,7 +99,7 @@ git clone https://github.com/horst3180/arc-icon-theme --depth 1 && sudo mv arc-i
 sudo apt -y install --reinstall firefox
 
 # Remove residual packages and script
-sudo rm google-chrome-stable_current_amd64.deb forticlient.deb
+sudo rm google-chrome-stable_current_amd64.deb
 
 # WINE
 sudo dpkg --add-architecture i386 && sudo apt update -y
