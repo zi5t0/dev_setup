@@ -7,7 +7,7 @@ sudo apt update
 USR=$(whoami)
 HOMEDIR=/home/$USR
 
-# Download debs: chrome, forticlient
+# Download debs: chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 # Dev libraries
@@ -31,9 +31,20 @@ echo ':syntax on' >> $HOMEDIR/.vimrc && echo ':set number' >> $HOMEDIR/.vimrc
 sudo cp $HOMEDIR/.vimrc /root/.vimrc
 
 # Docker
+
+# Certificados de docker
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+# Update, docker compose
 sudo apt update && sudo apt install -y docker-ce docker-compose
+# Setea al usuario los permisos de docker
 sudo usermod -aG docker $USR
 
 # Visual Studio Code
@@ -105,6 +116,6 @@ sudo rm google-chrome-stable_current_amd64.deb
 sudo dpkg --add-architecture i386 && sudo apt update -y
 sudo mkdir -pm755 /etc/apt/keyrings
 sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
-sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources
 sudo apt update -y && sudo apt install -y --install-recommends winehq-stable
 
