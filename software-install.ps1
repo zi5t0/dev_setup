@@ -11,7 +11,8 @@ $apps = @(
     @{ name = "Blizzard.BattleNet";                 display = "Battle.net" },
     @{ name = "VideoLAN.VLC";                       display = "VLC Media Player" },
     @{ name = "7zip.7zip";                          display = "7-Zip" },
-    @{ name = "Adobe.Acrobat.Reader.64-bit";        display = "Adobe Acrobat Reader" }
+    @{ name = "Adobe.Acrobat.Reader.64-bit";        display = "Adobe Acrobat Reader" },
+    @{ name = "9N1F85V9T8BN";                       display = "Windows App (Windows 365)" }
 )
 
 foreach ($app in $apps) {
