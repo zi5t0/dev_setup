@@ -1,0 +1,65 @@
+#cloud-config
+autoinstall:
+  version: 1
+
+  early-commands:
+    - ping -c1 8.8.8.8
+
+  locale: en_US
+  keyboard:
+    layout: us
+    variant: intl
+
+  network:
+    network:
+      version: 2
+      ethernets:
+        enp3s0:
+          dhcp4: true
+
+  apt:
+    primary:
+      - arches: [default]
+        uri: http://archive.ubuntu.com/ubuntu
+
+  storage:
+    layout:
+      name: lvm
+
+  identity:
+    hostname: aliseo
+    username: zhork
+    password: "$6$7baa4aa15d9d8981a59e3dcde98c3ac373938f05ac9489c95a8ed732357f06b6bdb979642818cdb45144d5ead0832452ab68d90d4fd888cb363ff2a3ab05388c"
+
+  ssh:
+    install-server: false
+
+  packages:
+    - apt-transport-https
+    - ca-certificates
+    - software-properties-common
+    - build-essential
+    - linux-headers-$(uname -r)
+    - gcc
+    - g++
+    - make
+    - git
+    - unzip
+    - neofetch
+    - htop
+    - curl
+    - wget
+    - feh
+    - mpv
+    - vlc
+    - python3-pip
+    - zsh
+    - filezilla
+    - qbittorrent
+
+  user-data:
+    disable_root: false
+
+  late-commands:
+    - sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=5/' /target/etc/default/grub
+    - chroot /target update-grub
