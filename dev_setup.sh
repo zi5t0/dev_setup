@@ -74,9 +74,9 @@ sudo mv Postman.desktop /usr/share/applications/Postman.desktop
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 # Spotify
-sudo apt update && sudo apt install curl gnupg2 -y
-curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/spotify-archive-keyring.gpg > /dev/null
-echo "deb [signed-by=/usr/share/keyrings/spotify-archive-keyring.gpg] http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+#sudo apt update && sudo apt install curl gnupg2 -y
+#curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/spotify-archive-keyring.gpg > /dev/null
+#echo "deb [signed-by=/usr/share/keyrings/spotify-archive-keyring.gpg] http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
 # 4. Actualiza los repositorios e instala Spotify
 sudo apt update
