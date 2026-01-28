@@ -1,109 +1,142 @@
 #!/bin/bash
+set -e
 
-# Update system
-sudo apt update
+USR="$(whoami)"
+HOMEDIR="/home/$USR"
 
-# Set global var
-USR=$(whoami)
-HOMEDIR=/home/$USR
+sudo apt update && sudo apt upgrade -y
 
-# Download debs: chrome, forticlient
+# 1. WAYLAND + HYPERLAND
+sudo apt install -y \
+  xserver-xorg \
+  xwayland \
+  seatd \
+  dbus-user-session \
+  mesa-utils \
+  mesa-vulkan-drivers \
+  hyperland \
+  wofi \
+  waybar \
+  swaybg \
+  swaylock \
+  wl-clipboard \
+  grim \
+  slurp \
+  mako-notifier \
+  xdg-desktop-portal \
+  xdg-desktop-portal-wlr
+
+sudo systemctl enable --now seatd
+
+echo "exec hyperland" > "$HOMEDIR/.xinitrc"
+sudo chown "$USR":"$USR" "$HOMEDIR/.xinitrc"
+
+sudo apt install -y build-essential linux-headers-$(uname -r) gcc g++ make
+sudo apt install -y apt-transport-https ca-certificates software-properties-common
+sudo apt install -y \
+  git unzip neofetch htop curl wget feh mpv vlc \
+  python3-pip zsh filezilla qbittorrent
+
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
-# Dev libraries
-sudo apt install -y build-essential linux-headers-$(uname -r) gcc g++ make
-
-# Software libraries
-sudo apt install -y apt-transport-https ca-certificates software-properties-common
-
-# Git, Unzip, Neofetch, Htop, Curl, Wget, Feh, Mpv, Vlc Python3-Pip, zsh, filezilla qbittorrent
-sudo apt install -y git unzip neofetch htop curl wget feh mpv vlc python3-pip zsh filezilla qbittorrent
-
-# Fix installs 
 sudo apt install -y -f
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended --skip-chsh
 
-# Configure OhMyZsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended --skip-chsh"
-
-# Vim & config
 sudo apt install -y vim
-echo ':syntax on' >> $HOMEDIR/.vimrc && echo ':set number' >> $HOMEDIR/.vimrc
-sudo cp $HOMEDIR/.vimrc /root/.vimrc
+echo ':syntax on' >> "$HOMEDIR/.vimrc"
+echo ':set number' >> "$HOMEDIR/.vimrc"
+sudo cp "$HOMEDIR/.vimrc" /root/.vimrc
 
-# Docker
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-sudo apt update && sudo apt install -y docker-ce docker-compose
-sudo usermod -aG docker $USR
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker.gpg
 
-# Visual Studio Code
-wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-sudo add-apt-repository -y "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker.gpg] \
+   https://download.docker.com/linux/debian \
+   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+
+sudo apt update
+sudo apt install -y docker-ce docker-compose
+sudo usermod -aG docker "$USR"
+
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/microsoft.gpg
+rm microsoft.gpg
+
+echo \
+"deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] \
+ https://packages.microsoft.com/repos/vscode stable main" \
+ | sudo tee /etc/apt/sources.list.d/vscode.list
+
 sudo apt update && sudo apt install -y code
 
-# Postman
-wget https://dl.pstmn.io/download/latest/linux64
-sudo tar -xvf linux64 -C /usr/bin
-echo 'export PATH="$PATH:/usr/bin/Postman"' >> ~/.bashrc
-echo '[Desktop Entry]
-Name=Postman API Tool
-GenericName=Postman
-Comment=Testing API
-Exec=/usr/bin/Postman/Postman
+wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
+sudo tar -xvf postman.tar.gz -C /opt/
+sudo ln -sf /opt/Postman/Postman /usr/bin/postman
+
+cat <<EOF > Postman.desktop
+[Desktop Entry]
+Name=Postman
+Exec=/usr/bin/postman
 Terminal=false
-X-MultipleArgs=false
 Type=Application
-Icon=/usr/bin/Postman/app/resources/app/assets/icon.png
-StartupWMClass=Postman
-StartupNotify=true' > Postman.desktop
+Icon=/opt/Postman/app/resources/app/assets/icon.png
+EOF
+
 sudo mv Postman.desktop /usr/share/applications/Postman.desktop
 
+sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt -f install -y
 
-# Google Chrome
-sudo dpkg -i google-chrome-stable_current_amd64.deb
+curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg \
+ | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
 
-# Spotify
-curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt update && sudo apt -y install spotify-client && sudo apt -f install
+echo "deb http://repository.spotify.com stable non-free" \
+ | sudo tee /etc/apt/sources.list.d/spotify.list
 
-# NVM
-wget https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh
-bash install.sh && rm install.sh
-source ~/.bashrc
+sudo apt update
+sudo apt install -y spotify-client
 
-# NodeJS V18
-nvm install v18
+wget https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh -O nvm_install.sh
+bash nvm_install.sh
+rm nvm_install.sh
+
+export NVM_DIR="$HOMEDIR/.nvm"
+source "$NVM_DIR/nvm.sh"
+
+nvm install 18
 nvm use 18
 nvm alias default 18
 
-# Optional: Logitech drivers and config
 sudo apt install -y build-essential cmake pkg-config libevdev-dev libudev-dev libconfig++-dev libglib2.0-dev
+
 git clone https://github.com/PixlOne/logiops.git
 cd logiops && mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release .. && make && sudo make install && rm -r logiops
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make
+sudo make install
+cd ~
+rm -rf logiops
 sudo systemctl enable logid
 
-# Pnpm
 curl -fsSL https://get.pnpm.io/install.sh | sh -
-source /home/zhork/.bashrc
 
-# Angular (v13)
-pnpm install -g @angular/cli@13
+pnpm install -g @angular/cli@20
 
-# Customization (themes) arc-icon-theme
-git clone https://github.com/horst3180/arc-icon-theme --depth 1 && sudo mv arc-icon-them/Arc /usr/share/icons/arc
-# TODO: Falta hacer que se setee el tema de iconos por defecto
+git clone https://github.com/horst3180/arc-icon-theme --depth 1
+sudo cp -R arc-icon-theme/Arc /usr/share/icons/
+rm -rf arc-icon-theme
 
-# Fix firefox
 sudo apt -y install --reinstall firefox
 
-# Remove residual packages and script
-sudo rm google-chrome-stable_current_amd64.deb
+sudo rm -f google-chrome-stable_current_amd64.deb
 
-# WINE
-sudo dpkg --add-architecture i386 && sudo apt update -y
+sudo dpkg --add-architecture i386
+sudo apt update -y
 sudo mkdir -pm755 /etc/apt/keyrings
 sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
-sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
-sudo apt update -y && sudo apt install -y --install-recommends winehq-stable
+sudo wget -NP /etc/apt/sources.list.d/ \
+ https://dl.winehq.org/wine-builds/debian/dists/$(lsb_release -cs)/winehq-$(lsb_release -cs).sources
+
+sudo apt update -y
+sudo apt install -y --install-recommends winehq-stable
+
+echo "INSTALACIÓN COMPLETA."
