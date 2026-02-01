@@ -21,11 +21,6 @@ Este repositorio contiene un instalador completo para configurar un entorno de d
 
 ## Uso
 
-ONELINER: 
-```bash
-curl -s https://raw.githubusercontent.com/tu_usuario/dev_setup/main/install.py | python3
-```
-
 1. Clonar el repositorio:
 ```bash
 git clone https://github.com/tu_usuario/dev_setup.git
