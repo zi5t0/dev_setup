@@ -1,73 +1,76 @@
 {
-    "system_packages": [
-        "build-essential",
-        "gcc",
-        "g++",
-        "make",
-        "apt-transport-https",
-        "ca-certificates",
-        "software-properties-common",
-        "git",
-        "unzip",
-        "neofetch",
-        "htop",
-        "curl",
-        "wget",
-        "feh",
-        "mpv",
-        "vlc",
-        "python3-pip",
-        "zsh",
-        "filezilla",
-        "qbittorrent"
+  "system_packages": [
+    "build-essential",
+    "gcc",
+    "g++",
+    "make",
+    "apt-transport-https",
+    "ca-certificates",
+    "software-properties-common",
+    "git",
+    "unzip",
+    "neofetch",
+    "htop",
+    "curl",
+    "wget",
+    "feh",
+    "mpv",
+    "vlc",
+    "python3-pip",
+    "zsh",
+    "filezilla",
+    "qbittorrent",
+    "vim",
+    "fonts-firacode",
+    "fonts-noto-color-emoji"
+  ],
+  "native_apps": {
+    "vscode": {
+      "description": "Visual Studio Code",
+      "repo_url": "https://packages.microsoft.com/repos/vscode"
+    },
+    "chrome": {
+      "description": "Google Chrome",
+      "deb_url": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+    },
+    "postman": {
+      "description": "Postman",
+      "download_url": "https://dl.pstmn.io/download/latest/linux64"
+    },
+    "spotify": {
+      "description": "Spotify",
+      "repo_url": "http://repository.spotify.com"
+    },
+    "wine": {
+      "description": "WineHQ",
+      "repo_url": "https://dl.winehq.org/wine-builds/ubuntu"
+    }
+  },
+  "development_tools": {
+    "docker": {
+      "description": "Docker Engine",
+      "repo_url": "https://download.docker.com/linux/ubuntu"
+    },
+    "nvm": {
+      "description": "Node Version Manager",
+      "install_script": "https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh"
+    },
+    "pnpm": {
+      "description": "Fast, disk space efficient package manager",
+      "install_script": "https://get.pnpm.io/install.sh"
+    }
+  },
+  "zsh_config": {
+    "theme": "robbyrussell",
+    "plugins": [
+      "zsh-autosuggestions",
+      "zsh-syntax-highlighting"
     ],
-    "native_apps": {
-        "vscode": {
-            "description": "Visual Studio Code",
-            "repo_url": "https://packages.microsoft.com/repos/vscode"
-        },
-        "chrome": {
-            "description": "Google Chrome",
-            "deb_url": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-        },
-        "postman": {
-            "description": "Postman",
-            "download_url": "https://dl.pstmn.io/download/latest/linux64"
-        },
-        "spotify": {
-            "description": "Spotify",
-            "repo_url": "http://repository.spotify.com"
-        },
-        "wine": {
-            "description": "WineHQ",
-            "repo_url": "https://dl.winehq.org/wine-builds/ubuntu"
-        }
-    },
-    "development_tools": {
-        "docker": {
-            "description": "Docker Engine",
-            "repo_url": "https://download.docker.com/linux/ubuntu"
-        },
-        "nvm": {
-            "description": "Node Version Manager",
-            "install_script": "https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh"
-        },
-        "pnpm": {
-            "description": "Fast, disk space efficient package manager",
-            "install_script": "https://get.pnpm.io/install.sh"
-        }
-    },
-    "zsh_config": {
-        "theme": "robbyrussell",
-        "plugins": [
-            "zsh-autosuggestions",
-            "zsh-syntax-highlighting"
-        ],
-        "oh_my_zsh_install": "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
-    },
-    "post_install_commands": [
-        "sudo usermod -aG sudo $USER",
-        "sudo usermod -aG docker $USER",
-        "chsh -s $(which zsh)"
-    ]
+    "oh_my_zsh_install": "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+  },
+  "post_install_commands": [
+    "sudo usermod -aG sudo $USER",
+    "sudo usermod -aG docker $USER",
+    "chsh -s $(which zsh)"
+  ]
 }
