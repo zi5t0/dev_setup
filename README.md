@@ -14,7 +14,7 @@ Este repositorio contiene un instalador completo para configurar un entorno de d
 
 ## Archivos
 
-- `install.py` → Script principal de instalación (Python)
+- `setup.py` → Script principal de instalación (Python)
 - `packages.json` → Configuración de paquetes y aplicaciones
 
 ---
@@ -29,12 +29,12 @@ cd dev_setup
 
 2. Dar permisos al script:
 ```bash
-chmod +x install.py
+chmod +x setup.py
 ```
 
 3. Ejecutar el instalador:
 ```bash
-./install.py
+./setup.py
 ```
 
 > El script pedirá permisos de sudo cuando sea necesario.
@@ -49,7 +49,7 @@ exec zsh
 ## One-liner (ejecución directa desde Internet)
 
 ```bash
-curl -s https://raw.githubusercontent.com/tu_usuario/dev_setup/main/install.py | python3
+curl -s https://raw.githubusercontent.com/tu_usuario/dev_setup/main/setup.py | python3
 ```
 
 > ⚠️ Asegúrate de revisar el script antes de ejecutar directamente desde internet.
